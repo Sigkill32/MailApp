@@ -1,0 +1,70 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+
+class Compose extends Component {
+  state = {
+    reciever: "",
+    sub: "",
+    content: ""
+  };
+
+  genKey = () => {
+    return Math.floor(Math.random() * 90000) + 10000;
+  };
+
+  handleChange = event => {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleSend = () => {
+    //dispatch send action
+    const { reciever, sub, content } = this.state;
+    this.props.dispatch({
+      type: "SEND",
+      mail: { id: this.genKey(), reciever, sub, content }
+    });
+    this.setState({ reciever: "", sub: "", content: "" });
+  };
+
+  render() {
+    const { reciever, sub, content } = this.state;
+    return (
+      <div className="compose">
+        <React.Fragment>
+          <h1 style={{ textAlign: "center" }}>NEW MAIL</h1>
+          <div className="compose">
+            <input
+              type="text"
+              name="reciever"
+              value={reciever}
+              onChange={this.handleChange}
+              placeholder="TO"
+            />
+            <br />
+            <input
+              type="text"
+              name="sub"
+              value={sub}
+              onChange={this.handleChange}
+              placeholder="SUBJECT"
+            />
+            <br />
+            <textarea
+              name="content"
+              cols="30"
+              rows="10"
+              value={content}
+              onChange={this.handleChange}
+              placeholder="CONTENT"
+            />
+            <br />
+            <button onClick={this.handleSend}>send</button>
+          </div>
+        </React.Fragment>
+      </div>
+    );
+  }
+}
+
+export default connect()(Compose);
