@@ -40,19 +40,23 @@ class MailList extends Component {
     const { type, mails } = this.props;
     return (
       <div className="mail-list">
-        {mails.map(mail => (
-          <div className="mail" key={mail.id}>
-            <p>From: {mail.sender}</p>
-            <p>To: {mail.reciever}</p>
-            <p>Sub: {mail.sub}</p>
-            <button onClick={() => this.handleDelete(mail.id, type)}>
-              Delete
-            </button>
-            <button onClick={() => this.handleView(mail)}>
-              <Link to={`/mail/${type}/${mail.id}`}>View</Link>
-            </button>
-          </div>
-        ))}
+        {mails.length > 0 ? (
+          mails.map(mail => (
+            <div className="mail" key={mail.id}>
+              <p>From: {mail.sender}</p>
+              <p>To: {mail.reciever}</p>
+              <p>Sub: {mail.sub}</p>
+              <button onClick={() => this.handleDelete(mail.id, type)}>
+                Delete
+              </button>
+              <button onClick={() => this.handleView(mail)}>
+                <Link to={`/mail/${type}/${mail.id}`}>View</Link>
+              </button>
+            </div>
+          ))
+        ) : (
+          <h1>Nothing To Show</h1>
+        )}
       </div>
     );
   }

@@ -1,11 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Joi from "joi-browser";
 
 class Compose extends Component {
   state = {
     reciever: "",
     sub: "",
-    content: ""
+    content: "",
+    disabled: true
+  };
+
+  schema = {
+    reciever: Joi.string()
+      .email()
+      .required(),
+    sub: Joi.string().required(),
+    content: Joi.string().required()
+  };
+
+  validate = () => {
+    const { reciever, sub, content } = this.state;
+    const { error } = Joi.validate({ reciever, sub, content }, this.schema);
+    if (!error) {
+      this.setState({ disabled: false });
+      return;
+    } else console.log(error.details);
   };
 
   genKey = () => {
@@ -13,6 +32,7 @@ class Compose extends Component {
   };
 
   handleChange = event => {
+    this.validate();
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
@@ -28,7 +48,7 @@ class Compose extends Component {
   };
 
   render() {
-    const { reciever, sub, content } = this.state;
+    const { reciever, sub, content, disabled } = this.state;
     return (
       <div className="compose">
         <React.Fragment>
@@ -59,7 +79,13 @@ class Compose extends Component {
               placeholder="CONTENT"
             />
             <br />
-            <button onClick={this.handleSend}>send</button>
+            <button
+              onClick={this.handleSend}
+              disabled={disabled}
+              className={disabled ? "btn-nt-allowed" : "btn-allowed"}
+            >
+              send
+            </button>
           </div>
         </React.Fragment>
       </div>
