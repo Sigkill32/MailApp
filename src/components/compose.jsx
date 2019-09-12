@@ -38,7 +38,6 @@ class Compose extends Component {
   };
 
   handleSend = () => {
-    //dispatch send action
     const { reciever, sub, content } = this.state;
     this.props.dispatch({
       type: "SEND",
