@@ -28,7 +28,7 @@ class Compose extends Component {
   };
 
   genKey = () => {
-    return Math.floor(Math.random() * 90000) + 10000;
+    return Date.now();
   };
 
   handleChange = event => {
