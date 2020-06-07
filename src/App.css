@@ -81,7 +81,7 @@ html {
 .compose h1 {
   text-align: center;
 }
-.compose input[type="text"] {
+.compose input[type=text] {
   width: 85%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -147,6 +147,11 @@ html {
   text-decoration: none;
   color: white;
 }
+.mail-list h1 {
+  text-transform: uppercase;
+  font-weight: normal;
+  margin-top: 30%;
+}
 
 .trash h1 {
   text-align: center;
@@ -176,10 +181,6 @@ html {
 
 .btn-nt-allowed {
   cursor: not-allowed;
-}
-
-.btn-allowed {
-  cursor: pointer;
 }
 
 /*# sourceMappingURL=App.css.map */
